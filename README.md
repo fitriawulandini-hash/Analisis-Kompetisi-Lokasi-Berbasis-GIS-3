@@ -1,0 +1,1 @@
+# Analisis-Kompetisi-Lokasi-Berbasis-GIS-3
