@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis GIS - Tugas Pertemuan 3</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f1; margin: 0; padding: 40px; display: flex; justify-content: center; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 550px; }
+        h2 { color: #1b5e20; margin-top: 0; text-align: center; }
+        p.subtitle { text-align: center; color: #555; font-size: 14px; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { background-color: #2e7d32; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 16px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button:hover { background-color: #1b5e20; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 6px; background-color: #e8f5e9; color: #1b5e20; font-weight: bold; display: none; }
+        .result ul { margin: 5px 0 0 20px; padding: 0; font-weight: normal; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Simulasi Analisis Lokasi GIS</h2>
+        <p class="subtitle">Materi: Carrier and Competition in Industrial era with GIS (Widi Prima Deva)</p>
+        
+        <div class="form-group">
+            <label for="jarakPusat">Jarak ke Pusat Kota (KM):</label>
+            <input type="number" id="jarakPusat" value="5" min="0" max="50">
+        </div>
+
+        <div class="form-group">
+            <label for="jumlahPesaing">Jumlah Kompetitor dalam Radius 2 KM:</label>
+            <input type="number" id="jumlahPesaing" value="3" min="0" max="20">
+        </div>
+
+        <button onclick="analisisLokasi()">Analisis Kelayakan Spasial</button>
+
+        <div id="hasil" class="result"></div>
+    </div>
+
+    <script>
+        function analisisLokasi() {
+            let jarak = parseFloat(document.getElementById('jarakPusat').value);
+            let pesaing = parseInt(document.getElementById('jumlahPesaing').value);
+            let hasilDiv = document.getElementById('hasil');
+
+            if (isNaN(jarak) || isNaN(pesaing) || jarak < 0 || pesaing < 0) {
+                hasilDiv.style.display = 'block';
+                hasilDiv.style.backgroundColor = '#ffebee';
+                hasilDiv.style.color = '#c62828';
+                hasilDiv.innerText = 'Mohon masukkan angka yang valid!';
+                return;
+            }
+
+            // Logika sederhana penentuan skor kelayakan GIS
+            let status = "";
+            let warnaBg = "#e8f5e9"; 
+            let warnaText = "#1b5e20";
+
+            if (jarak > 25) {
+                status = "TIDAK STRATEGIS: Lokasi terlalu jauh dari pusat keramaian.";
+                warnaBg = "#ffebee"; warnaText = "#c62828";
+            } else if (pesaing > 8) {
+                status = "TIDAK STRATEGIS: Tingkat kompetitor terlalu padat (High Competition).";
+                warnaBg = "#ffebee"; warnaText = "#c62828";
+            } else {
+                status = "STRATEGIS: Lokasi potensial untuk ekspansi bisnis! 🌍";
+                warnaBg = "#e8f5e9"; warnaText = "#1b5e20";
+            }
+
+            hasilDiv.style.display = 'block';
+            hasilDiv.style.backgroundColor = warnaBg;
+            hasilDiv.style.color = warnaText;
+            hasilDiv.innerHTML = `
+                Hasil Evaluasi Spasial GIS:
+                <ul>
+                    <li>Jarak Akses: ${jarak} KM dari pusat kota</li>
+                    <li>Kepadatan Pesaing: ${pesaing} kompetitor terdeteksi</li>
+                    <li><b>Kesimpulan: ${status}</b></li>
+                </ul>
+            `;
+        }
+    </script>
+
+</body>
+</html>
