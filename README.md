@@ -1,3 +1,5 @@
+website: https://fitriawulandini-hash.github.io/Analisis-Kompetisi-Lokasi-Berbasis-GIS-3/
+
 Analisis Kompetisi & Lokasi Berbasis GIS
 
 Repositori ini berisi studi kasus materi Pertemuan 3 mengenai pemanfaatan Sistem Informasi Geografis (GIS) untuk analisis spasial dan persetujuan lokasi strategis di era industri[cite: 1].
